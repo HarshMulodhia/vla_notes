@@ -1,43 +1,89 @@
 # Chapter 06 - Training Objectives and Optimization Pipelines
 
-## 6.1 Typical training stages
+## 6.1 Training lifecycle for VLA models
 
-1. Multimodal pretraining initialization.
-2. Robot demonstration supervised fine-tuning (behavior cloning).
-3. Optional post-training (RL/safety/preference tuning).
+A practical lifecycle is usually:
+1. initialize from multimodal/text-vision prior,
+2. behavior-clone on robot trajectories,
+3. run targeted post-training (RL/safety/preference),
+4. iterate with failure-mined data.
 
-## 6.2 Core losses
+This lifecycle repeats; it is not one-shot.
 
-- Action prediction loss (MSE, discretized CE, or hybrid).
-- Auxiliary alignment losses (vision-language grounding).
-- Regularization for stability (weight decay, dropout, EMA).
+## 6.2 Objective design
 
-## 6.3 Teacher forcing and rollout mismatch
+### Action prediction loss
+- CE for tokenized actions,
+- MSE or Gaussian NLL for continuous actions,
+- hybrid losses for mixed interfaces.
 
-Teacher forcing helps optimization but causes exposure bias.
-Common fixes:
+### Auxiliary losses
+- language-vision alignment,
+- temporal consistency,
+- action smoothness penalties.
+
+The objective should reflect downstream priorities (success, stability, safety), not only single-step prediction fidelity.
+
+## 6.3 Teacher forcing and exposure bias
+
+Teacher forcing stabilizes training but creates rollout mismatch because the model never sees its own errors during supervision.
+
+Mitigations:
 - scheduled sampling,
-- dataset aggregation,
-- periodic on-policy relabeling.
+- DAgger-style data aggregation,
+- on-policy rollout relabeling.
 
-## 6.4 Optimization engineering
+Ignoring exposure bias is a major source of deployment surprise.
 
-- mixed precision,
-- gradient checkpointing,
-- distributed data parallelism,
-- careful sequence packing and masking.
+## 6.4 Optimization and systems engineering
 
-## 6.5 Parameter-efficient adaptation
+Important engineering levers:
+- mixed precision for throughput,
+- gradient clipping for stability,
+- sequence packing efficiency,
+- memory-aware batch sizing,
+- distributed checkpoint resilience.
 
-LoRA/adapters are widely used to adapt large backbones to specific robots/tasks with lower compute and lower overfitting risk.
+Training instability in VLAs often comes from sequence-length and multimodal-batch interactions rather than optimizer choice alone.
 
-## 6.6 Debugging training
+## 6.5 Hyperparameter sensitivity
 
-Watch these metrics together:
-- action loss,
-- task success on held-out simulated rollouts,
-- calibration/stability indicators,
-- safety-intervention frequency.
+High-impact hyperparameters include:
+- learning rate schedule,
+- context length,
+- action-loss weight,
+- instruction dropout ratio,
+- augmentation intensity.
 
-Low loss with poor success often indicates objective mismatch or action-space issues.
+Sensitivity should be tested with small but representative ablation sweeps before full-scale runs.
+
+## 6.6 Parameter-efficient adaptation
+
+LoRA/adapters are useful when:
+- compute is limited,
+- overfitting risk is high,
+- multiple task-specific variants must be maintained.
+
+But if base representation is misaligned with target embodiment, full or broader fine-tuning may still be needed.
+
+## 6.7 Monitoring metrics during training
+
+Track these together:
+- offline action loss,
+- rollout success metrics,
+- safety intervention rate,
+- robustness under perturbation slices,
+- language-following fidelity.
+
+Metric divergence (e.g., loss down, success flat) is a key diagnosis signal.
+
+## 6.8 Training run postmortem template
+
+After each major run, document:
+1. dataset snapshot and schema version,
+2. exact objective and weights,
+3. infrastructure settings,
+4. evaluation slices,
+5. primary failure classes,
+6. next targeted data/architecture changes.
 

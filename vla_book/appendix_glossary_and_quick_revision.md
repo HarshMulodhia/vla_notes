@@ -1,28 +1,54 @@
 # Appendix - Glossary and Quick Revision Notes
 
-## A.1 Core terms
+## A.1 Core glossary (expanded)
 
-- **VLA**: model mapping vision + language (+ state) to actions.
-- **VLM**: model mapping vision + language to text/semantic outputs.
-- **Behavior Cloning (BC)**: supervised imitation of demonstration actions.
-- **Action Tokenization**: discretizing/encoding continuous actions into sequence tokens.
-- **Embodiment**: specific robot morphology, kinematics, and control interface.
-- **Sim-to-Real**: transfer from simulation-trained behavior to physical deployment.
-- **Distribution Shift**: mismatch between training data distribution and deployment distribution.
+- **VLA (Vision-Language-Action Model):** Multimodal policy that maps perception and language context to executable actions.
+- **VLM (Vision-Language Model):** Multimodal model that usually outputs semantic/textual predictions rather than control actions.
+- **Behavior Cloning (BC):** Supervised learning from demonstration actions.
+- **DAgger-style aggregation:** Iterative dataset expansion with policy-induced states corrected by expert/supervisor labels.
+- **Action Tokenization:** Converting continuous control space into discrete symbolic units for autoregressive modeling.
+- **Action Chunking:** Predicting short action sequences at once for smoother and faster execution.
+- **Embodiment Conditioning:** Providing robot-specific context so one model can adapt behavior across morphologies.
+- **Distribution Shift:** Deviation between training and deployment state-action distributions.
+- **Sim-to-Real Gap:** Mismatch between simulated and physical dynamics/sensing.
+- **Fallback Policy:** Safe backup behavior triggered when uncertainty or risk exceeds threshold.
+- **Intervention Rate:** Frequency of safety/human overrides during deployment.
+- **Calibration:** Degree to which confidence estimates align with actual correctness/safety.
 
-## A.2 Exam-style quick checks
+## A.2 Quick concept map
 
-1. Why can a low imitation loss still yield poor task success?
-2. When should you prefer tokenized actions over continuous outputs?
-3. Why is fallback control mandatory in physical VLA systems?
-4. What is the minimum evaluation protocol before real deployment?
+- Ch. 01 defines taxonomy and architecture categories.
+- Ch. 02 formalizes objective and shift challenges.
+- Ch. 03–04 define model and action-interface design.
+- Ch. 05–06 define data and optimization levers.
+- Ch. 07 defines post-training and planning integration.
+- Ch. 08–11 define runtime, evaluation, safety, and deployment.
+- Ch. 12 translates understanding into research direction.
 
-## A.3 1-page revision summary
+## A.3 Exam-style deep checks
 
-- VLA unifies perception, language grounding, and control.
-- Data quality/diversity is often the strongest determinant of generalization.
-- Action interface design is central to both performance and safety.
-- Pure BC is rarely enough for robust real-world deployment.
-- Runtime safety layers, monitoring, and fallback logic are non-negotiable.
-- Benchmarking must include robustness and failure taxonomy, not only success rate.
+1. Why can better offline action loss fail to improve long-horizon success?
+2. Under what conditions is tokenized action better than continuous regression?
+3. How do you diagnose whether a failure is perception-grounding vs control-interface mismatch?
+4. Why must safety constraints be layered rather than model-internal only?
+5. What evaluation slices are mandatory before real-world rollout?
+
+## A.4 1-page revision summary
+
+- VLA unifies perception, language grounding, and control into one policy interface.
+- Taxonomy-driven thinking prevents architecture choices from being ad hoc.
+- Action interface design is as important as model backbone choice.
+- Data quality/coverage and synchronization are dominant determinants of robustness.
+- BC is a strong start but usually insufficient without post-training and safety wrapping.
+- Runtime reliability depends on latency budgets, uncertainty gating, and fallback hierarchy.
+- Proper evaluation needs robustness, error taxonomy, and intervention metrics.
+- Deployment success requires engineering discipline: lineage, canarying, monitoring, and rollback.
+
+## A.5 Practical pre-deployment checklist
+
+- [ ] Action units/scales validated end-to-end.
+- [ ] Safety limits and emergency stop tested.
+- [ ] Robustness tests passed on perturbation suites.
+- [ ] Intervention and incident logging operational.
+- [ ] Rollback and operator takeover runbook verified.
 

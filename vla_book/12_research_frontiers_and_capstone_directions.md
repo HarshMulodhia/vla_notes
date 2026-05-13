@@ -1,40 +1,65 @@
 # Chapter 12 - Research Frontiers and Capstone Directions
 
-## 12.1 Active research themes
+## 12.1 Major research frontiers
 
-- Better action tokenization with lower latency and higher precision.
-- Long-horizon planning with multimodal memory.
-- Strong sim-to-real transfer under realistic sensing noise.
-- Cross-embodiment scaling laws and universal action interfaces.
-- Safety-aware alignment and verifiable constraints in learned policies.
+1. **Action representation scaling:** bridging token efficiency and control precision.
+2. **Long-horizon reasoning:** combining memory, planning, and grounded execution.
+3. **Sim-to-real robustness:** narrowing reality gap under visual and dynamics noise.
+4. **Cross-embodiment transfer:** universal interfaces and scalable conditioning.
+5. **Safety-aware alignment:** integrating constraints and preferences into learning.
 
 ## 12.2 Open technical questions
 
-1. How should we represent actions so that language-model scaling benefits transfer to control without losing precision?
-2. What is the best split between end-to-end learning and modular control for reliability?
-3. How can we measure and guarantee safe behavior under unseen instructions/environments?
-4. How should world models and VLAs be combined for long-horizon tasks?
+- What is the right abstraction level for action tokens in high-DoF manipulation?
+- How should uncertainty be represented for decision-critical fallback switching?
+- Where should modular boundaries be placed in hybrid VLA-control stacks?
+- How can we evaluate compositional generalization without benchmark leakage?
+- What minimal guarantees are feasible for learned multimodal controllers?
 
-## 12.3 Capstone project tracks
+## 12.3 Capstone track A: End-to-end VLA baseline
 
-### Track A: End-to-end VLA in simulation
-- Build a baseline VLA policy for a multitask manipulation simulator.
-- Compare continuous vs tokenized action outputs.
-- Report transfer to unseen objects/instructions.
+Goal:
+- build a multitask simulation baseline,
+- compare continuous vs tokenized action interfaces,
+- evaluate on unseen object-layout combinations.
 
-### Track B: Hybrid planner-controller system
-- Use language/vision model for high-level decomposition.
-- Execute with conventional low-level controllers.
-- Evaluate reliability vs pure end-to-end VLA.
+Deliverables:
+- reproducible training pipeline,
+- ablation report,
+- failure taxonomy and improvement plan.
 
-### Track C: Safety-first VLA deployment prototype
-- Implement intervention-aware runtime stack.
-- Quantify safety interventions and recovery success.
-- Produce governance-ready logs and incident analyses.
+## 12.4 Capstone track B: Hybrid planner-controller stack
 
-## 12.4 Suggested thesis-level extensions
+Goal:
+- combine language-grounded high-level policy with classical low-level control.
 
-- Preference-tuned VLA for human style alignment.
-- Cross-domain adaptation (warehouse to household manipulation).
-- Embodied reasoning traces for interpretable action generation.
+Deliverables:
+- interface specification,
+- reliability comparison against end-to-end baseline,
+- safety-intervention analysis.
+
+## 12.5 Capstone track C: Safety and governance-focused prototype
+
+Goal:
+- build intervention-aware runtime pipeline with comprehensive audit logs.
+
+Deliverables:
+- runtime fallback implementation,
+- incident replay tooling,
+- governance-ready reporting template.
+
+## 12.6 Thesis-level extension ideas
+
+- preference-aligned manipulation policy under sparse correction signals,
+- uncertainty-calibrated VLA for high-risk contact tasks,
+- compositional language grounding benchmarks for embodied control,
+- efficient multi-robot adaptation with shared latent action spaces.
+
+## 12.7 How to choose your research direction
+
+Choose by intersection of:
+- scientific novelty,
+- measurable impact on reliability/generalization,
+- available data and hardware constraints,
+- your own long-term specialization goals.
 

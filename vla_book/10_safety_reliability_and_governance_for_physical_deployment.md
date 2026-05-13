@@ -1,46 +1,75 @@
 # Chapter 10 - Safety, Reliability, and Governance for Physical Deployment
 
-## 10.1 Safety stack layers
+## 10.1 Layered safety architecture
 
-No single model is enough for physical safety. Use layered protection:
-- model-level constraints,
-- command-level filters,
-- controller-level safeguards,
-- hardware interlocks,
-- operator supervision.
+Physical deployment requires defense-in-depth:
+1. model-level constraints,
+2. command-level limit enforcement,
+3. controller-level protective checks,
+4. hardware interlocks and emergency stop,
+5. human supervisory override.
 
-## 10.2 Reliability engineering for VLAs
+No single layer should be trusted as the sole barrier.
 
-Key practices:
-- distribution shift monitoring,
-- confidence-aware gating,
-- anomaly detection on observations/actions,
-- rollback-capable deployment strategy.
+## 10.2 Constraint design
 
-## 10.3 Human-in-the-loop operations
+Typical constraints include:
+- workspace boundaries,
+- joint and velocity limits,
+- collision and self-collision avoidance,
+- force/torque thresholds,
+- forbidden-zone constraints.
 
-Human oversight should include:
-- intervention tooling,
-- corrective demonstration capture,
-- post-incident replay and diagnosis.
+Constraints should be explicit, testable, and verified in regression suites.
 
-## 10.4 Governance and auditability
+## 10.3 Reliability operations
 
-Keep complete logs of:
-- observation snapshots,
-- prompts/instructions,
-- model versions,
-- output actions,
-- safety interventions,
-- final outcomes.
+Reliability requires ongoing monitoring for:
+- distribution shift,
+- anomaly bursts,
+- policy degradation after updates,
+- intervention frequency trends.
 
-This is essential for debugging, compliance, and accountability.
+Operational reliability is a lifecycle process, not a one-time validation artifact.
 
-## 10.5 Security concerns
+## 10.4 Human-in-the-loop control
 
-Protect against:
-- prompt/instruction tampering,
+Human roles include:
+- intervention during unsafe behavior,
+- corrective demonstration generation,
+- failure triage and labeling,
+- policy release approval.
+
+Human-in-the-loop pipelines should optimize both safety and learning velocity.
+
+## 10.5 Governance and auditability
+
+Keep immutable logs of:
+- sensor snapshots,
+- instructions/prompts,
+- model and config versions,
+- action outputs,
+- safety overrides,
+- outcomes.
+
+Without audit-quality logs, post-incident analysis and compliance become unreliable.
+
+## 10.6 Security for VLA deployments
+
+Threat surfaces include:
+- instruction channel tampering,
 - sensor spoofing,
-- unsafe model updates,
-- insecure remote control paths.
+- insecure model artifact updates,
+- unauthorized remote control.
+
+Mitigations include authenticated command channels, signed artifacts, strict network isolation, and access controls.
+
+## 10.7 Release gating checklist
+
+Before rollout:
+1. pass simulation safety regression,
+2. pass staged physical trial thresholds,
+3. confirm rollback plan,
+4. validate monitoring and alerting,
+5. sign off by operations and safety owners.
 
