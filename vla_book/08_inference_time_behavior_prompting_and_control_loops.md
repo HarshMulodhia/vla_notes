@@ -1,0 +1,82 @@
+# Chapter 08 - Inference-Time Behavior, Prompting, and Control Loops
+
+## 8.1 Runtime control loop anatomy
+
+At each cycle:
+1. acquire synchronized sensor state,
+2. build context window (history + instruction + state),
+3. infer action or action chunk,
+4. apply safety and feasibility checks,
+5. execute via controller,
+6. log outcomes and monitor anomalies.
+
+Reliability depends on the consistency of this full loop, not only model accuracy.
+
+## 8.2 Prompting and instruction protocol
+
+Prompt structure should standardize:
+- task intent,
+- object references,
+- constraints,
+- success condition,
+- optional style or safety hints.
+
+Inconsistent prompting produces avoidable behavior variance.
+
+## 8.3 Context management
+
+Decide what historical information to retain:
+- fixed-size sliding window,
+- event-based memory tokens,
+- summarized state features.
+
+Too little history harms disambiguation; too much history increases latency and attention noise.
+
+## 8.4 Closed-loop versus open-loop execution
+
+- **Closed-loop:** frequent replanning, better robustness, higher compute demand.
+- **Open-loop chunks:** lower overhead, weaker recovery to disturbances.
+
+Many systems use adaptive control: open-loop chunk execution with periodic closed-loop correction triggers.
+
+## 8.5 Latency budget and control frequency
+
+End-to-end latency includes:
+- sensor capture,
+- preprocessing,
+- model forward pass,
+- safety filters,
+- command dispatch.
+
+If latency approaches the plant dynamics timescale, control quality collapses even with accurate predictions.
+
+## 8.6 Runtime uncertainty and gating
+
+Use uncertainty estimates to decide:
+- continue normal control,
+- reduce action magnitude,
+- request replanning,
+- switch to fallback mode.
+
+Uncertainty-aware gating is one of the most practical reliability upgrades for VLA deployment.
+
+## 8.7 Fallback and recovery hierarchy
+
+Recommended hierarchy:
+1. normal VLA policy,
+2. constrained VLA mode,
+3. scripted safe primitive,
+4. stop-and-hold,
+5. human takeover.
+
+Each transition should have explicit trigger conditions and logging.
+
+## 8.8 Inference-time debugging checklist
+
+When behavior is unstable, inspect:
+- prompt consistency,
+- context window integrity,
+- action scaling/clipping,
+- latency spikes,
+- frequency of safety-layer overrides.
+
