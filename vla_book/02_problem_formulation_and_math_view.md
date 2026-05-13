@@ -1,45 +1,85 @@
 # Chapter 02 - Problem Formulation and Mathematical View
 
-## 2.1 POMDP framing
+## 2.1 POMDP framing for VLA control
 
-VLA control is naturally modeled as a partially observable Markov decision process (POMDP):
+Robot control is naturally partially observable. Camera streams and proprioception provide incomplete, noisy information, so VLA policies are conditioned on observation history:
 \[
-\mathcal{P} = (\mathcal{S}, \mathcal{A}, \mathcal{O}, T, R, \gamma)
+a_t \sim \pi_\theta(\cdot \mid h_t, g), \quad h_t=(o_{1:t}, s_{1:t}, a_{1:t-1})
 \]
-But in many VLA pipelines, reward is absent during pretraining; supervision comes from demonstration trajectories.
 
-## 2.2 Sequence modeling view
+A practical implication: memory design is not optional. If your policy context window is too short, manipulation failures rise sharply in occluded settings.
 
-Given trajectory data:
+## 2.2 Sequence modeling objective
+
+Many VLAs optimize autoregressive action likelihood:
 \[
-\tau = (o_1, s_1, a_1, ..., o_T, s_T, a_T, g)
+\max_\theta \sum_t \log p_\theta(a_t \mid o_{\le t}, s_{\le t}, g, a_{<t})
 \]
-training often maximizes:
-\[
-\sum_t \log p_\theta(a_t \mid o_{\le t}, s_{\le t}, g, a_{<t})
-\]
-This converts policy learning into conditional next-token prediction.
+For tokenized actions this is cross-entropy; for continuous actions this may involve Gaussian NLL or MSE variants.
 
-## 2.3 Horizon and temporal abstraction
+Important distinction:
+- low prediction error does not guarantee high task success,
+- rollout-level objectives are still needed for robust deployment.
 
-Key design choice: what does one predicted action represent?
-- instant control primitive,
-- short-horizon chunk,
-- high-level skill command.
+## 2.3 Temporal abstraction and control horizon
 
-Temporal abstraction affects stability, control frequency, and error accumulation.
+Define the policy timescale explicitly:
+- single-step reactive actions,
+- multi-step action chunks,
+- high-level subgoal emissions.
 
-## 2.4 Distribution shift in robotics
+This determines:
+- control frequency,
+- stability vs responsiveness,
+- how quickly errors can be corrected.
 
-Unlike offline NLP, robot deployment introduces covariate shift:
-- policy-induced states deviate from demonstration states,
-- sensor noise and hardware drift break assumptions,
-- long-horizon rollout compounds small errors.
+## 2.4 Distribution shift and compounding error
 
-Therefore, VLA systems need online correction loops (replanning, fallback controllers, human intervention).
+Offline demonstration training assumes expert-state distribution. During deployment, policy mistakes move the system off-distribution. Then prediction quality degrades further.
+
+Mitigations:
+- iterative data aggregation,
+- uncertainty-aware gating,
+- fallback behavior primitives,
+- targeted failure replay data.
 
 ## 2.5 Objective mismatch
 
-A pure imitation objective optimizes action likelihood, not task success directly.
-Post-training (RL, preference alignment, constraints) is used to close this gap.
+Imitation objective optimizes “matching the demonstrator,” while robotics objective is “safely complete the task.”
+
+Mismatch examples:
+- multiple valid actions but one demonstrated path,
+- delayed success criteria not captured by local action loss,
+- safety failures not penalized by BC objective.
+
+Hence post-training and constrained execution are critical.
+
+## 2.6 Credit assignment in VLA systems
+
+Classical RL handles delayed reward explicitly. VLA BC pipelines often hide this with supervised labels. This can cause weak long-horizon reasoning.
+
+Typical fixes:
+- hierarchical policies,
+- value-guided reranking,
+- RL refinement on difficult rollout segments.
+
+## 2.7 Calibration and uncertainty
+
+For physical deployment, action confidence matters. Useful forms:
+- predictive entropy (tokenized output),
+- distributional variance (continuous heads),
+- ensemble disagreement,
+- state novelty scores.
+
+These signals can drive intervention and fallback policies.
+
+## 2.8 Practical math-to-system checklist
+
+Before training, specify:
+1. state/observation definition,
+2. action parameterization and units,
+3. context length and temporal stride,
+4. loss terms and weighting,
+5. rollout evaluation protocol,
+6. uncertainty handling and safety constraints.
 

@@ -1,16 +1,24 @@
 # Vision-Language-Action (VLA) Book Notes
 
-This directory contains a **book-style set of notes** for the VLA domain, designed for a learner who already has:
-- deep RL background,
-- computer vision basics,
-- autonomous systems fundamentals.
+This directory contains a **book-style VLA handbook** that explains concepts in depth, with framing tailored to your background in:
+- Deep RL,
+- Computer Vision,
+- Autonomous Systems.
+
+## Reading philosophy
+
+The notes are organized to move from **foundations → modeling choices → training → deployment**. Each chapter now explicitly covers:
+- definitions and formal framing,
+- why each concept matters in practice,
+- common trade-offs and failure modes,
+- links to adjacent chapters.
 
 ## How to read this book
 
-1. Start with Chapter 0 and 1 for framing and formal setup.
-2. Move to Chapters 2–6 for model and training internals.
-3. Use Chapters 7–11 for evaluation, deployment, and real-system concerns.
-4. End with Chapter 12 for open research directions and project ideas.
+1. Read Chapters 00–02 to align terminology and formal problem setup.
+2. Read Chapters 03–07 to understand model, data, and training design choices.
+3. Read Chapters 08–11 for runtime behavior, reliability, and system engineering.
+4. Read Chapter 12 and the Appendix for research direction and revision.
 
 ## Chapter map
 
@@ -28,3 +36,11 @@ This directory contains a **book-style set of notes** for the VLA domain, design
 - [11 - System Design, Tooling, and Deployment Engineering](./11_system_design_tooling_and_deployment_engineering.md)
 - [12 - Research Frontiers and Capstone Directions](./12_research_frontiers_and_capstone_directions.md)
 - [Appendix - Glossary and Quick Revision Notes](./appendix_glossary_and_quick_revision.md)
+
+## Suggested weekly flow (optional)
+
+- Week 1: Ch. 00–02 (mental model + math framing)
+- Week 2: Ch. 03–05 (architecture + actions + data)
+- Week 3: Ch. 06–08 (optimization + RL post-training + runtime)
+- Week 4: Ch. 09–12 + Appendix (evaluation + safety + research)
+

@@ -2,41 +2,85 @@
 
 ## 0.1 Why this book exists
 
-VLA has become the center of modern robot intelligence stacks because it unifies:
-- perception (vision),
-- instruction following (language),
-- decision/execution (action).
+VLA is a convergence point of three fields you already know separately:
+- perception from CV,
+- policy learning from RL,
+- stack design and constraints from autonomous systems.
 
-With your background, the key shift is this:
-- In deep RL courses, you likely optimized policies for a specific task.
-- In VLA, you learn to build **generalist pretrained policies** that can be adapted across tasks and sometimes embodiments.
+What changes in VLA is not only the model class; it is also the **unit of design**. In classical robotics, you hand-design modules and interfaces. In VLA-centric systems, you increasingly design:
+- datasets,
+- modality interfaces,
+- post-training loops,
+- safety wrappers around a large policy prior.
 
-## 0.2 Prior knowledge mapping
+## 0.2 What your background gives you immediately
 
-### What you already know
-- **Deep RL**: policy optimization, exploration-exploitation, actor-critic ideas.
-- **CV basics**: feature extraction, representation quality, invariance.
-- **Autonomous systems**: perception-planning-control decomposition and safety constraints.
+### Deep RL transfer
+You already understand:
+- policy classes and optimization,
+- credit assignment limitations,
+- distribution shift and compounding error.
 
-### What is new in VLA
-- Language-conditioned control as first-class policy input.
-- Sequence-model view of control (actions as tokens or autoregressive outputs).
-- Data scaling and pretraining as central performance drivers.
-- Generalization across tasks and embodiments.
+This helps in VLA because imitation-trained models still face policy-induced shift and long-horizon instability.
 
-## 0.3 Suggested learning route
+### CV transfer
+You already understand:
+- viewpoint sensitivity,
+- domain shift,
+- representation quality.
 
-- **Pass 1 (Conceptual):** Chapters 1, 2, 3, 4.
-- **Pass 2 (Training):** Chapters 5, 6, 7.
-- **Pass 3 (Engineering):** Chapters 8, 9, 10, 11.
-- **Pass 4 (Research):** Chapter 12 + capstone.
+This maps directly to visual grounding failure in VLA.
 
-## 0.4 Core mental model
+### Autonomous systems transfer
+You already understand:
+- hierarchical decomposition,
+- planner/controller interfaces,
+- safety envelopes.
 
-Treat VLA as:
-1. a large multimodal sequence model,
-2. conditioned on visual observations + text goals (+ optional state),
-3. trained mostly from offline demonstrations,
-4. adapted with targeted post-training (RL, safety constraints, preference tuning),
-5. integrated into a full robot system with safety and latency guarantees.
+This is critical because practical VLA systems are almost never “model only”; they rely on constrained execution layers.
+
+## 0.3 Key mindset shifts
+
+1. **From task-specific policy to pretrained generalist policy.**
+2. **From reward design dominance to data design dominance.**
+3. **From static stack modules to adaptable multimodal interfaces.**
+4. **From benchmark score only to reliability + recoverability metrics.**
+
+## 0.4 Learning route and chapter dependency graph
+
+- Ch. 01 defines the taxonomy you will use throughout.
+- Ch. 02 gives the formal mathematical framing.
+- Ch. 03–04 explain model internals and action interfaces.
+- Ch. 05–06 explain why data and optimization decide performance.
+- Ch. 07 adds RL/planning post-training to close imitation gaps.
+- Ch. 08–11 explain runtime, evaluation, safety, and deployment.
+- Ch. 12 translates this into research and capstone direction.
+
+## 0.5 Core mental model (operational)
+
+Treat a VLA stack as five coupled loops:
+1. **Representation loop**: visual and language grounding quality.
+2. **Policy loop**: action generation quality under temporal context.
+3. **Data loop**: demonstration coverage and annotation quality.
+4. **Safety loop**: filtered execution and intervention handling.
+5. **Improvement loop**: failure mining and targeted retraining.
+
+If any one loop is weak, real-world behavior degrades quickly.
+
+## 0.6 Typical beginner mistakes (even for strong ML students)
+
+- Over-focusing on model size while ignoring action interface design.
+- Optimizing offline loss while not checking rollout-level failure modes.
+- Treating language as optional metadata instead of control context.
+- Ignoring runtime latency and control frequency constraints.
+- Evaluating only average success without robust perturbation testing.
+
+## 0.7 Practical outcome target for this book
+
+By the end, you should be able to:
+- classify any VLA paper/system on core axes,
+- design a minimal but realistic VLA training pipeline,
+- choose between continuous vs tokenized actions,
+- define evaluation and safety criteria for deployment,
+- identify one research gap worth a thesis-level exploration.
 
