@@ -102,3 +102,19 @@ Different interfaces fail differently:
 ## 3.11 The main takeaway
 
 When you read later papers such as OpenVLA, π0, SmolVLA, or Fast-ThinkAct, keep returning to one question: **what is the action object this model is really producing?** The best way to understand a VLA is often to understand its action interface before anything else.
+
+## 3.12 Deepening resources (papers, tutorials, books)
+
+**Papers**
+- BeT: https://arxiv.org/abs/2206.11251
+- Diffusion Policy: https://arxiv.org/abs/2303.04137
+- ACT/ALOHA: https://arxiv.org/abs/2304.13705
+- FAST: https://arxiv.org/abs/2501.09747
+
+**Online tutorials**
+- Hugging Face π0 post for action experts: https://huggingface.co/blog/pi0
+- LeRobot docs (policy interfaces and datasets): https://huggingface.co/docs/lerobot
+
+**Books**
+- Modern Robotics (control interface grounding).
+- Reinforcement Learning: An Introduction (action abstraction and policy parameterization lens).

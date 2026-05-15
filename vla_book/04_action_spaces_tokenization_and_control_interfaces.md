@@ -104,3 +104,11 @@ Together they explain why action representation is one of the most important dif
 ## 4.11 Additional design question: who absorbs the mismatch?
 
 Every action interface creates mismatch somewhere: between the model and the controller, between one robot and another, or between training-time abstractions and inference-time timing. When comparing interfaces, ask which layer pays that cost. If the answer is "the controller will figure it out," the system usually becomes brittle in deployment.
+
+## Deepening resources
+
+- BeT (https://arxiv.org/abs/2206.11251)
+- ACT (https://arxiv.org/abs/2304.13705)
+- FAST (https://arxiv.org/abs/2501.09747)
+
+For a broader reading index across all chapters, see Chapter 13.

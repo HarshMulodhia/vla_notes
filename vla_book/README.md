@@ -31,6 +31,7 @@ Use the book in two passes:
 - [10 - Safety, Reliability, and Governance for Physical Deployment](./10_safety_reliability_and_governance_for_physical_deployment.md)
 - [11 - System Design, Tooling, and Deployment Engineering](./11_system_design_tooling_and_deployment_engineering.md)
 - [12 - Research Frontiers and Capstone Directions](./12_research_frontiers_and_capstone_directions.md)
+- [13 - Extended References: Papers, Tutorials, and Books](./13_extended_references_papers_tutorials_and_books.md)
 - [Appendix - Glossary and Quick Revision Notes](./appendix_glossary_and_quick_revision.md)
 
 ## 14-week study map
@@ -67,4 +68,5 @@ Each chapter should leave you with four outputs:
 1. a concise definition of the design problem,
 2. a list of the most important trade-offs,
 3. named anchor papers that instantiate those trade-offs,
-4. a short checklist you could use when designing or reviewing a real VLA system.
+4. a short checklist you could use when designing or reviewing a real VLA system,
+5. one recommended deepening resource from Chapter 13 (paper/tutorial/book).

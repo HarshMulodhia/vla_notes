@@ -70,3 +70,11 @@ The newer frontier is best summarized in four clusters: richer action generation
 ## 12.9 A practical capstone framing
 
 A modern capstone can mirror the full reading flow: start with an RT/OpenVLA-style baseline, compare at least one alternative action interface such as chunking or diffusion, add a data-engineering improvement, and finish with either a runtime-speedup experiment or a post-training experiment. That sequence better reflects the field than treating the VLA as a single isolated model-training problem.
+
+## Deepening resources
+
+- DreamZero (https://dreamzero0.github.io/)
+- Cosmos Policy (https://arxiv.org/abs/2601.16163)
+- Fast-ThinkAct (https://arxiv.org/abs/2601.09708)
+
+For a broader reading index across all chapters, see Chapter 13.

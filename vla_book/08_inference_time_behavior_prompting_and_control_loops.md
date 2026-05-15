@@ -87,3 +87,11 @@ SmolVLA, RTC, Helix, and Fast-in-Slow make an important point: inference design 
 ## 8.10 Slow reasoning plus fast execution is becoming a default pattern
 
 Dual-system designs separate heavy semantic reasoning from lightweight motor execution. This pattern appears in different forms across Helix and Fast-in-Slow and is likely to become more common as models grow. The practical lesson is that not every control cycle needs full multimodal deliberation; many cycles only need stable execution conditioned on a slowly updated plan.
+
+## Deepening resources
+
+- SmolVLA (https://arxiv.org/abs/2506.01844)
+- RTC (https://arxiv.org/abs/2506.07339)
+- Fast-in-Slow (https://arxiv.org/abs/2506.01953)
+
+For a broader reading index across all chapters, see Chapter 13.

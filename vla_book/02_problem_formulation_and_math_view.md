@@ -90,3 +90,11 @@ The current literature makes it clear that action prediction is no longer only a
 ## 2.10 Practical bridge from equations to papers
 
 When reading RT-2 or OpenVLA, the main mathematical lens is usually conditional sequence modeling. When reading Diffusion Policy, π0, or FAST-related work, add the lens of trajectory generation, compression, and receding-horizon decoding. The important move is to translate every paper back into the same policy question: what conditional object is the model actually learning to generate?
+
+## Deepening resources
+
+- Diffusion Policy (https://arxiv.org/abs/2303.04137)
+- MIT 6.S184 notes (https://arxiv.org/abs/2506.02070)
+- Probabilistic Robotics for uncertainty modeling
+
+For a broader reading index across all chapters, see Chapter 13.

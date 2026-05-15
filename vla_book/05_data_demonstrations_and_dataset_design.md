@@ -105,3 +105,11 @@ The importance of OXE and AgiBot World is not only scale. These datasets made em
 ## 5.10 Training formats versus logging formats
 
 A useful distinction is to separate logging formats such as rosbag and MCAP from training-oriented schemas such as RLDS or LeRobotDataset. Logging formats are optimized for faithful capture and replay; training formats are optimized for batch loading, slicing, normalization, and metadata access. Strong VLA systems usually need both layers to be well designed.
+
+## Deepening resources
+
+- OXE (https://arxiv.org/abs/2310.08864)
+- RLDS docs (https://github.com/google-research/rlds)
+- LeRobot docs (https://huggingface.co/docs/lerobot)
+
+For a broader reading index across all chapters, see Chapter 13.

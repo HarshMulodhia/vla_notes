@@ -224,3 +224,73 @@ For every paper, answer the same questions:
 - The module notes give deeper lecture-style explanations of foundations, taxonomy, backbones, and action representations.
 - The book translates the paper flow into chapter-length notes on system design, data, optimization, deployment, and research direction.
 - The most important habit is to compare papers by interface choices, data regime, and runtime assumptions rather than by headline success rate alone.
+
+
+## Detailed weekly paper list (with direct links)
+
+### Phase 1 (Weeks 1-3): Generative foundations
+- MIT 6.S184 course (diffusion and flow matching): https://diffusion.csail.mit.edu/2025/index.html
+- Course notes paper: https://arxiv.org/abs/2506.02070
+- Diffusion tutorial context for practitioners: https://huggingface.co/learn/diffusion-course/unit1/1
+
+### Phase 2 (Weeks 4-5): Early robot foundation models and core policy ideas
+- RT-1: https://arxiv.org/abs/2212.06817
+- RT-2: https://arxiv.org/abs/2307.15818
+- Octo: https://arxiv.org/abs/2405.12213
+- OpenVLA: https://arxiv.org/abs/2406.09246
+- Behavior Transformers (BeT): https://arxiv.org/abs/2206.11251
+- Diffusion Policy: https://arxiv.org/abs/2303.04137
+- ACT/ALOHA: https://arxiv.org/abs/2304.13705
+
+### Phase 3 (Weeks 6-7): Current architecture families
+- CogACT: https://arxiv.org/abs/2411.19650
+- GR00T N1: https://arxiv.org/abs/2503.14734
+- X-VLA: https://arxiv.org/abs/2510.10274
+- π0: https://arxiv.org/abs/2410.24164
+- InternVLA-M1: https://arxiv.org/abs/2510.13778
+- Transfusion (architectural context): https://arxiv.org/abs/2408.11039
+
+### Phase 4 (Weeks 8-9): Data scaling and data engines
+- Open X-Embodiment (OXE): https://arxiv.org/abs/2310.08864
+- AgiBot World: https://arxiv.org/abs/2503.06669
+- UMI: https://arxiv.org/abs/2402.10329
+- VITRA: https://arxiv.org/abs/2510.21571
+- Human to Robot Transfer: https://arxiv.org/abs/2512.22414
+- RLDS: https://github.com/google-research/rlds
+- LeRobot docs: https://huggingface.co/docs/lerobot
+
+### Phase 5 (Weeks 10-11): Efficient inference and dual-system designs
+- SmolVLA: https://arxiv.org/abs/2506.01844
+- RTC: https://arxiv.org/abs/2506.07339
+- Helix: https://www.figure.ai/news/helix
+- Fast-in-Slow: https://arxiv.org/abs/2506.01953
+
+### Phase 6 (Weeks 12-14): RL fine-tuning, reasoning, and world models
+- HIL-SERL: https://arxiv.org/abs/2410.21845
+- SimpleVLA-RL: https://arxiv.org/abs/2509.09674
+- π*0.6 / Recap: https://arxiv.org/abs/2511.14759
+- CoT-VLA: https://arxiv.org/abs/2503.22020
+- ThinkAct: https://arxiv.org/abs/2507.16815
+- Fast-ThinkAct: https://arxiv.org/abs/2601.09708
+- UniVLA: https://arxiv.org/abs/2506.19850
+- Cosmos Policy: https://arxiv.org/abs/2601.16163
+- DreamZero: https://dreamzero0.github.io/
+
+## Tutorials, courses, and books to run in parallel
+
+### Online tutorials and courses
+- Hugging Face VLM primer: https://huggingface.co/blog/vlms
+- Hugging Face π0 overview: https://huggingface.co/blog/pi0
+- LeRobot policy training docs: https://huggingface.co/docs/lerobot
+- UC Berkeley CS285 (Deep RL): http://rail.eecs.berkeley.edu/deeprlcourse/
+- Stanford CS231n (vision): https://cs231n.stanford.edu/
+- Stanford CS224n (NLP/transformers): https://web.stanford.edu/class/cs224n/
+
+### Foundational books (related fields)
+- Sutton & Barto, *Reinforcement Learning: An Introduction* (2nd ed.)
+- Lynch & Park, *Modern Robotics*
+- Siciliano et al., *Springer Handbook of Robotics*
+- Murphy, *Probabilistic Robotics*
+- Goodfellow, Bengio, Courville, *Deep Learning*
+
+Use these resources as background reinforcement while following the week-by-week paper sequence.

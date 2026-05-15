@@ -106,3 +106,18 @@ These are rarely solved by one more training epoch. They usually indicate that m
 - What information is visible to the action module?
 - How expensive is the trunk relative to the control frequency required in deployment?
 - Does the architecture cleanly separate semantic reasoning from motor execution, or does it force one loop to do both?
+
+## 2.12 Deepening resources (papers, tutorials, books)
+
+**Papers**
+- OpenVLA architecture: https://arxiv.org/abs/2406.09246
+- CogACT: https://arxiv.org/abs/2411.19650
+- π0: https://arxiv.org/abs/2410.24164
+
+**Online tutorials/courses**
+- Hugging Face transformer architecture primer: https://huggingface.co/learn/llm-course/chapter1/6
+- Hugging Face VLM primer: https://huggingface.co/blog/vlms
+
+**Books**
+- Dive into Deep Learning (transformers and attention chapters).
+- Deep Learning (representation-learning fundamentals).

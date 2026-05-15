@@ -124,3 +124,28 @@ A good reading order for this repository is:
 3. use the book chapters to deepen your understanding of data design, training, evaluation, deployment, and research direction.
 
 The most important meta-skill is to compare systems by data regime, action abstraction, and runtime design rather than by model size alone.
+
+
+## 11. Extended references: papers, tutorials, and books
+
+### Papers by role in the stack
+- **Backbone transition:** RT-1, RT-2, OpenVLA, Octo.
+- **Action modeling:** BeT, Diffusion Policy, ACT, FAST, π0.
+- **Data scaling:** OXE, AgiBot World, UMI, VITRA.
+- **Runtime systems:** SmolVLA, RTC, Helix, Fast-in-Slow.
+- **Post-training and foresight:** HIL-SERL, SimpleVLA-RL, ThinkAct, UniVLA, DreamZero.
+
+### High-value online tutorials
+- Hugging Face VLM primer for multimodal fundamentals.
+- Hugging Face π0 post for action-expert intuition.
+- LeRobot docs for practical dataset and policy pipelines.
+- MIT diffusion course materials for generative-control math.
+
+### Books to strengthen neighboring foundations
+- **RL:** Sutton & Barto.
+- **Robotics and control:** Modern Robotics; Springer Handbook of Robotics.
+- **Probabilistic inference:** Probabilistic Robotics.
+- **Deep learning foundations:** Deep Learning (Goodfellow et al.).
+
+### How to use this section
+Read one core paper, one implementation/tutorial resource, and one foundational chapter from a related book in parallel. This triad makes it easier to convert conceptual understanding into practical system design decisions.

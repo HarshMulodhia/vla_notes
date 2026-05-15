@@ -82,3 +82,17 @@ When you open a new VLA paper, first ask:
 ## 0.9 Common failure in how beginners study the area
 
 A common mistake is to treat VLA papers as if they were only better policy-network papers. They are not. They are papers about interfaces between web-scale representation learning, robot datasets, control horizons, data infrastructure, and deployment systems. If you miss that systems view, the literature will feel fragmented when it is actually becoming more unified.
+
+## 0.10 Deepening resources (papers, tutorials, books)
+
+**Papers and surveys**
+- Foundation models in robotics survey: https://arxiv.org/abs/2312.07843
+- VLA survey perspective: https://arxiv.org/abs/2510.07077
+
+**Online tutorials/courses**
+- DigitalOcean VLA overview: https://www.digitalocean.com/community/conceptual-articles/vision-language-action-models
+- CS285 for RL transfer framing: http://rail.eecs.berkeley.edu/deeprlcourse/
+
+**Books**
+- Sutton & Barto for policy-learning and distribution-shift intuition.
+- Modern Robotics for control-stack interfaces and embodiment constraints.

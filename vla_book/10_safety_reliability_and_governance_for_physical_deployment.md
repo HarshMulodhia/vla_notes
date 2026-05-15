@@ -80,3 +80,11 @@ As RL fine-tuning and reasoning-aware systems become more common, safety is no l
 ## 10.9 Governance requirement for foundation-model-style robotics
 
 Foundation-model-style robot systems need stronger lineage than traditional task-specific policies: which pretraining mix was used, which corrective data was added later, which safety filters were active, and which benchmarks were passed before release. Without that provenance, it becomes difficult to audit why a robot behaved a certain way after multiple rounds of large-scale adaptation.
+
+## Deepening resources
+
+- ThinkAct (https://arxiv.org/abs/2507.16815)
+- UniVLA (https://arxiv.org/abs/2506.19850)
+- Springer Handbook of Robotics safety chapters
+
+For a broader reading index across all chapters, see Chapter 13.

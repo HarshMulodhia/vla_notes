@@ -95,3 +95,11 @@ A major trend in newer papers is the distinction between VLM-plus-action-head sy
 ## 3.11 Why this split matters operationally
 
 The split predicts different bottlenecks. Action-head systems are often simpler to train and deploy but may bottleneck on information access. Action-expert systems are often more expressive and better suited to smooth high-frequency control, but they create extra inference and systems-engineering burdens. This is one of the clearest examples of how architecture and deployment are coupled in VLA work.
+
+## Deepening resources
+
+- CogACT (https://arxiv.org/abs/2411.19650)
+- π0 (https://arxiv.org/abs/2410.24164)
+- Hugging Face VLM tutorial (https://huggingface.co/blog/vlms)
+
+For a broader reading index across all chapters, see Chapter 13.

@@ -99,3 +99,11 @@ This matters because many later papers assume the reader already understands why
 ## 0.9 What to keep track of while reading the field
 
 Maintain one running table for every paper you read with these columns: backbone, action interface, data scale, embodiment scope, runtime frequency, post-training recipe, and deployment assumptions. Doing this early prevents the literature from becoming a list of disconnected model names.
+
+## Deepening resources
+
+- RT-2 (https://arxiv.org/abs/2307.15818)
+- Foundation models in robotics survey (https://arxiv.org/abs/2312.07843)
+- Sutton & Barto for policy-learning perspective
+
+For a broader reading index across all chapters, see Chapter 13.

@@ -115,3 +115,11 @@ This gives you a concrete retrieval cue whenever the taxonomy feels too abstract
 ## 1.12 Additional operational question: what sits outside the model?
 
 A taxonomy is incomplete if it ignores the surrounding stack. For each system, also ask what remains external: motion planners, collision checkers, low-level controllers, safety filters, or human takeover procedures. Two papers can both be "end-to-end VLAs" in the narrow sense yet differ drastically in how much classical robotics infrastructure they rely on at runtime.
+
+## Deepening resources
+
+- OpenVLA (https://arxiv.org/abs/2406.09246)
+- VLA survey (https://arxiv.org/abs/2505.04769)
+- Springer Handbook of Robotics taxonomy context
+
+For a broader reading index across all chapters, see Chapter 13.

@@ -118,3 +118,18 @@ Two models can both be described as "VLM-based VLAs" and still differ profoundly
 - how they were fine-tuned after pretraining,
 - which benchmarks and embodiments they actually cover,
 - how much non-model infrastructure is required for reliable deployment.
+
+## 1.13 Deepening resources (papers, tutorials, books)
+
+**Papers**
+- RT-2: https://arxiv.org/abs/2307.15818
+- OpenVLA: https://arxiv.org/abs/2406.09246
+- VLA survey: https://arxiv.org/abs/2505.04769
+
+**Online tutorials**
+- Hugging Face VLM primer: https://huggingface.co/blog/vlms
+- LearnOpenCV VLA overview: https://learnopencv.com/vision-language-action-models-lerobot-policy/
+
+**Books**
+- Springer Handbook of Robotics (for stack decomposition language).
+- Probabilistic Robotics (for uncertainty-aware taxonomy discussions).

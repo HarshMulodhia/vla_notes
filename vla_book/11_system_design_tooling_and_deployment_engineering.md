@@ -86,3 +86,11 @@ For VLA systems, tooling spans more than experiment tracking and checkpoint stor
 ## 11.9 Practical stack layers worth standardizing
 
 A mature setup should standardize five layers: data capture, dataset conversion, training configuration, evaluation harnesses, and deployment logging. This is the systems lesson behind large-scale datasets and cross-embodiment training: once the model spans many robots and tasks, inconsistent tooling becomes a larger bottleneck than minor modeling flaws.
+
+## Deepening resources
+
+- Helix systems note (https://www.figure.ai/news/helix)
+- LeRobot engineering docs (https://huggingface.co/docs/lerobot)
+- Modern Robotics for implementation constraints
+
+For a broader reading index across all chapters, see Chapter 13.

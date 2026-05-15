@@ -90,3 +90,11 @@ A strong benchmark does more than report success rate. It should reveal whether 
 ## 9.9 Add paper-family comparisons, not only model-by-model comparisons
 
 For modern study, it helps to compare entire families: RT/OpenVLA-style autoregressive systems, BeT-style discrete-action systems, Diffusion Policy and π0-style generative-control systems, and dual-system runtime architectures. Family-level comparison reveals deeper trade-offs than isolated benchmark numbers.
+
+## Deepening resources
+
+- vla-evaluation-harness (https://github.com/allenai/vla-evaluation-harness)
+- Open X-Embodiment evaluation sections (https://arxiv.org/abs/2310.08864)
+- Probabilistic Robotics for calibration/uncertainty evaluation
+
+For a broader reading index across all chapters, see Chapter 13.

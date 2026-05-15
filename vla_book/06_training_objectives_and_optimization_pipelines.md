@@ -94,3 +94,11 @@ Different model families want different training objectives. RT-style and OpenVL
 ## 6.10 Data scale makes optimization policy design harder
 
 Once training mixes many robots, labs, and collection pipelines, optimization becomes partly a data-allocation problem. Sampling ratios, task balancing, embodiment balancing, and curriculum design can matter as much as optimizer hyperparameters. At VLA scale, optimization is inseparable from dataset governance.
+
+## Deepening resources
+
+- OpenVLA training paper (https://arxiv.org/abs/2406.09246)
+- Diffusion/flow objectives from MIT 6.S184
+- Deep Learning textbook optimization chapters
+
+For a broader reading index across all chapters, see Chapter 13.
