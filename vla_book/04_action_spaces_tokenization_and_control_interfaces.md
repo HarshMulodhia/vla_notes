@@ -90,3 +90,25 @@ Before finalizing the interface, answer:
 3. How much precision does the task truly need?
 4. Is cross-embodiment transfer a requirement?
 
+## 4.10 Paper anchors for the action-design space
+
+Use these papers as the quickest map of the space:
+- **BeT** for discretized action modeling,
+- **ACT** for action chunking,
+- **Diffusion Policy** for trajectory denoising,
+- **OpenVLA** for discretized end-effector outputs in a VLM-based stack,
+- **π0 / FAST** for richer generative action interfaces and compressed tokenization.
+
+Together they explain why action representation is one of the most important differences between modern VLAs.
+
+## 4.11 Additional design question: who absorbs the mismatch?
+
+Every action interface creates mismatch somewhere: between the model and the controller, between one robot and another, or between training-time abstractions and inference-time timing. When comparing interfaces, ask which layer pays that cost. If the answer is "the controller will figure it out," the system usually becomes brittle in deployment.
+
+## Deepening resources
+
+- BeT (https://arxiv.org/abs/2206.11251)
+- ACT (https://arxiv.org/abs/2304.13705)
+- FAST (https://arxiv.org/abs/2501.09747)
+
+For a broader reading index across all chapters, see Chapter 13.

@@ -87,3 +87,18 @@ After each major run, document:
 5. primary failure classes,
 6. next targeted data/architecture changes.
 
+## 6.9 Matching objective choice to model family
+
+Different model families want different training objectives. RT-style and OpenVLA-style systems fit naturally into autoregressive or discretized behavior-cloning objectives. Diffusion Policy and π0-style systems bring in denoising or flow-matching objectives because the model is generating a richer action distribution over a horizon. A good training chapter must therefore connect the loss to the action interface, not treat objective design as independent.
+
+## 6.10 Data scale makes optimization policy design harder
+
+Once training mixes many robots, labs, and collection pipelines, optimization becomes partly a data-allocation problem. Sampling ratios, task balancing, embodiment balancing, and curriculum design can matter as much as optimizer hyperparameters. At VLA scale, optimization is inseparable from dataset governance.
+
+## Deepening resources
+
+- OpenVLA training paper (https://arxiv.org/abs/2406.09246)
+- Diffusion/flow objectives from MIT 6.S184
+- Deep Learning textbook optimization chapters
+
+For a broader reading index across all chapters, see Chapter 13.

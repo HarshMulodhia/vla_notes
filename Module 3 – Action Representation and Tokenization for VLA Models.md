@@ -1,145 +1,120 @@
 # Module 3 – Action Representation and Tokenization for VLA Models
 
-## 3.1 Module Goals (Given Deep RL & Autonomy Background)
+## 3.1 Why action representation is the key systems decision
 
-This module focuses on how actions are represented and tokenized inside VLA models, building directly on your understanding of continuous control, policy parameterization, and trajectory representations from deep RL and autonomous systems courses.[^1][^2] It reframes action spaces not only as mathematical objects in an MDP but also as discrete or compressed sequences compatible with transformer-based policies.
+In VLA work, action representation is not a minor output-layer choice. It determines what the model can express, how easily it can inherit LLM-style pretraining, how long inference takes, and how naturally it interfaces with robot controllers.
 
-By the end, you should be able to:
-- Enumerate common action representations used in robotic foundation models (continuous, discretized, compressed, latent, high-level tokens).[^3][^4]
-- Understand the design and trade-offs of action tokenization schemes such as per-dimension binning and DCT-based FAST.[^5][^6]
-- Read VLA papers through the lens of “what are the action tokens?” and how that affects performance, generalization, and compute.
+Two models with the same backbone can behave very differently purely because they choose different action abstractions.
 
-## 3.2 Continuous Action Representations (Baseline from RL)
+## 3.2 Continuous actions: the familiar baseline
 
-In classical deep RL and control, actions for manipulators or mobile robots are typically modeled as continuous vectors (e.g., joint torques, velocities, or Cartesian end-effector deltas), with policies parameterized by neural networks that output means and possibly covariances for Gaussian distributions over actions.[^1] This is the default representation in many imitation learning and RL-based robot policies.
+From an RL perspective, the simplest option is to regress continuous actions such as joint velocities or end-effector deltas. This keeps the interface close to classical robot control and preserves precision.
 
-A number of VLAs retain this paradigm and simply attach a continuous action head to a VLM backbone: the multimodal transformer produces a contextual embedding, and an MLP regresses continuous actions from it.[^2][^4] This yields a straightforward interface to existing controllers and is conceptually aligned with standard actor networks, but it does not exploit token-based autoregressive modeling across time in the same way discrete action tokens do.[^1]
+Advantages:
+- easy controller integration,
+- no quantization error,
+- natural fit for continuous-control tasks.
 
-## 3.3 Motivation for Discrete and Tokenized Actions
+Weaknesses:
+- weaker alignment with autoregressive token modeling,
+- harder handling of multimodal action distributions with a simple Gaussian head,
+- limited leverage from the discrete-token machinery used by LLMs.
 
-Autoregressive transformers, which underlie most VLAs, are designed to predict discrete tokens in sequence (words, subwords, or code points) and have been optimized and pretrained in that regime.[^7][^3] Representing actions as discrete tokens allows direct reuse of these architectures and training strategies for robot control.
+## 3.3 Discrete tokenization and action bins
 
-Discrete action tokens also enable modeling multimodal action distributions and long-horizon dependencies via sequence modeling, which can be harder to capture with simple Gaussian heads.[^8][^3] However, discretization introduces its own challenges: quantization error, large vocabularies or sequence lengths for high-frequency control, and embodiment-specific action scaling.[^5][^6]
+Discrete action tokens let a transformer reuse its causal next-token machinery for control. Common designs discretize each action dimension into bins and decode one or several categorical outputs per step.
 
-## 3.4 Unified View via Action Tokens
+This is attractive because it keeps the whole policy inside a language-model-style framework, but it introduces trade-offs:
+- finer precision means larger vocabularies or longer sequences,
+- action scaling must be carefully normalized across robots,
+- small binning mistakes can create large physical errors after controller execution.
 
-A recent survey proposes a unified framework in which VLA modules process vision and language inputs to generate **action tokens** that progressively become more grounded and executable.[^3][^9] In this view, different VLAs can be categorized primarily by how they formulate these tokens, regardless of architectural details.
+## 3.4 BeT, Diffusion Policy, and ACT as three anchor designs
 
-The survey identifies eight principal token types: language descriptions, code, affordances, trajectories, goal states, latent representations, raw actions, and reasoning tokens.[^3][^9] This taxonomy helps organize seemingly disparate approaches (e.g., code-generating planners vs. low-level end-effector controllers) under a single “tokenization” perspective.
+### BeT
+Behavior Transformers make discrete action modeling concrete by clustering or tokenizing actions and then predicting them autoregressively with offsets. This is a strong reference point for thinking about action discretization.
 
-## 3.5 High-Level Token Types: Language and Code
+### Diffusion Policy
+Diffusion Policy frames control as conditional trajectory generation. It is especially useful when several futures are valid and smooth receding-horizon action sequences are desired.
 
-At the highest abstraction, some VLAs use **language descriptions** as action tokens—high-level textual plans like “pick up the mug” or finer-grained language motions like “move the arm forward.”[^9][^3] These tokens are generated by LLMs/VLMs and then grounded by separate modules or controllers; this is common in hierarchical systems like SayCan or PaLM-E-based robots.[^9]
+### ACT / ALOHA
+ACT shows why action chunking matters. Predicting short future windows can stabilize long-horizon behavior, reduce compounding error, and improve execution for manipulation tasks.
 
-Other systems use **code tokens**, where LLMs generate executable code or pseudo-code calling robot APIs, effectively treating API calls as action tokens.[^9][^1] These “code as policies” approaches leverage existing libraries and allow clear logical structure, but depend heavily on predefined APIs and can be brittle in symbol grounding.[^9]
+Together, these three papers explain much of the later VLA design space.
 
-From a deep RL lens, these tokens correspond to very high-level actions in a hierarchical RL setup, with separate low-level policies handling continuous control.
+## 3.5 Action chunks, latent actions, and trajectories
 
-## 3.6 Spatial and Perceptual Tokens: Affordances and Trajectories
+Beyond single-step actions, modern VLAs often predict:
+- short action chunks,
+- latent trajectory codes,
+- waypoint-style intermediate plans,
+- full trajectory samples from a generative decoder.
 
-Intermediate representations include **affordance tokens**, such as keypoints, bounding boxes, segmentation masks, and dense affordance maps that indicate where and how to act in the scene.[^9] These are predicted by VLMs or specialized visual models and then consumed by motion planners or low-level controllers.
+These choices matter because the physical robot does not care whether the policy predicted a token, a chunk, or a denoised sample. It cares whether the resulting command stream is smooth, timely, and recoverable.
 
-Another class is **trajectory tokens**, which represent desired spatial motion over time: point trajectories, visual trajectories drawn in image space, or optical flow fields extracted from videos.[^9] VLAs can predict such trajectories from multimodal input, leaving a separate controller to track them.
+## 3.6 FAST and compressed action tokenization
 
-In autonomy terms, these tokens sit between planning and control, analogous to waypoints or reference trajectories in task and motion planning, but framed as outputs of a sequence model trained on demonstration data.[^1][^9]
+FAST highlights an important idea: you can preserve a token-based action interface while compressing the time series. By transforming an action window into a compact frequency-space representation, FAST reduces token length while preserving useful trajectory information.
 
-## 3.7 Goal-State Tokens and Latent Tokens
+This matters because many VLA systems otherwise hit a painful trade-off between high-frequency control and long autoregressive sequences.
 
-Some VLAs predict **goal state tokens**, such as future images, videos, or 3D point clouds representing the desired outcome of a task.[^9] A separate policy or planner then computes actions to reach that goal; this is reminiscent of goal-conditioned RL but with generative models producing explicit goal observations.[^9]
+## 3.7 Action representation and embodiment transfer
 
-More recently, **latent representation tokens** have been proposed: VQ-VAE codes, learned latent trajectories, or other compact embeddings that encode action-relevant information in an embodiment-agnostic way.[^9][^10] These are predicted by a VLM/VLA and then decoded by an action head trained to map latent codes to raw robot actions.
+Action design strongly affects cross-embodiment learning.
 
-These latent tokens enable data scaling by leveraging action-free videos and cross-embodiment datasets, but interpretability is reduced compared to language or trajectory tokens.[^9][^10]
+- raw joint actions are highly embodiment-specific,
+- end-effector deltas are more portable but still controller-dependent,
+- latent or chunked representations can be more transferable if they separate intent from morphology,
+- high-level skills are portable only when a stable skill library exists on every target robot.
 
-## 3.8 Raw Action Tokens: Discretization and Chunking
+A paper claiming multi-robot generalization is not complete until it explains how the action space was normalized or conditioned across robots.
 
-At the lowest level, **raw action tokens** represent direct control commands: end-effector displacements, joint commands, or similar.[^2][^3] A straightforward approach is **per-dimension binning**, discretizing each action dimension into B bins and treating the combination as a set of categorical outputs per time step.[^5][^4]
+## 3.8 Action representation and runtime behavior
 
-Another approach is **action chunking**, where short sequences of actions over a time window are generated together (e.g., in ACT-style models), reducing effective sequence length and improving stability.[^4] These designs are common in manipulation-oriented foundation models, which aim to directly imitate expert trajectories from large real-robot datasets.[^4][^10]
+Your action interface shapes runtime properties:
+- chunking can reduce inference frequency requirements,
+- continuous heads may support fast control loops but miss multimodal alternatives,
+- diffusion or flow-matching decoders can improve smoothness but raise inference cost,
+- compressed tokenizations try to recover efficiency without discarding sequence modeling.
 
-From your RL background, raw action tokens can be viewed as discretized versions of the continuous action space, with chunking analogous to macro-actions over a fixed horizon.
+This is why action design cannot be separated from deployment engineering.
 
-## 3.9 FAST: Frequency-Space Action Sequence Tokenization
+## 3.9 A practical comparison checklist
 
-A key challenge for token-based VLAs is representing high-frequency continuous action sequences efficiently and accurately.[^5][^6] The FAST method (Frequency-space Action Sequence Tokenization) addresses this by compressing action sequences via the discrete cosine transform (DCT) and then quantizing the resulting coefficients into discrete tokens.[^5][^11]
+For any action interface, ask:
+1. what exactly is emitted by the model,
+2. over what horizon,
+3. with what units and normalization,
+4. how it is decoded into executable commands,
+5. how much latency it adds,
+6. how much precision is lost,
+7. how easily it transfers across embodiments.
 
-FAST treats an action window as a time series, applies DCT to obtain frequency coefficients, selects or compresses them, and encodes them into a fixed-length sequence of discrete tokens that can be predicted autoregressively by a transformer.[^5][^12] When combined with π0-style VLAs, FAST enables training on tens of thousands of hours of robot data while matching diffusion-based VLA performance and reducing training time by up to 5×.[^5][^13]
+## 3.10 Failure modes by action representation
 
-In terms of control, FAST tokens can be decoded back into continuous action trajectories for execution, preserving smoothness and high-frequency detail while significantly shortening token sequences.[^5][^12]
+Different interfaces fail differently:
+- continuous heads can become over-smoothed or average away multimodality,
+- coarse bins can produce jerky or quantized behavior,
+- long token sequences can accumulate autoregressive drift,
+- chunked policies can delay correction to disturbances,
+- generative trajectory models can be strong offline but too slow if deployment is not redesigned.
 
-## 3.10 Other Discrete Action Schemes (DFMP and Related Work)
+## 3.11 The main takeaway
 
-Beyond FAST, other work explores principled discrete representations for continuous actions. Discrete Flow Matching Policy (DFMP), for example, learns continuous robot actions in a discrete space using score-based generative modeling over action tokens.[^8]
+When you read later papers such as OpenVLA, π0, SmolVLA, or Fast-ThinkAct, keep returning to one question: **what is the action object this model is really producing?** The best way to understand a VLA is often to understand its action interface before anything else.
 
-DFMP formulates action generation as a continuous-time Markov chain over discrete tokens, combining stable flow-matching optimization with multimodal behavior modeling and fast inference.[^8] It also includes a systematic study of tokenization schemes and their trade-offs for robot policies, aligning well with the action tokenization perspective on VLAs.
+## 3.12 Deepening resources (papers, tutorials, books)
 
-## 3.11 Design Trade-offs for Action Tokenization
+**Papers**
+- BeT: https://arxiv.org/abs/2206.11251
+- Diffusion Policy: https://arxiv.org/abs/2303.04137
+- ACT/ALOHA: https://arxiv.org/abs/2304.13705
+- FAST: https://arxiv.org/abs/2501.09747
 
-The choice of action representation and tokenization involves several key trade-offs:[^3][^5]
+**Online tutorials**
+- Hugging Face π0 post for action experts: https://huggingface.co/blog/pi0
+- LeRobot docs (policy interfaces and datasets): https://huggingface.co/docs/lerobot
 
-- **Precision vs. sequence length**: Fine-grained control requires many tokens (per-step binning) or higher-resolution DCT coefficients, increasing sequence length and compute.[^5][^6]
-- **Compatibility with pretraining**: Discrete tokens align with LLM-style pretraining, while continuous heads require custom training but plug in more easily to existing controllers.[^7][^3]
-- **Interpretability**: Language, code, and affordance tokens are more interpretable and easier for humans to debug, but less direct for low-level control.[^9]
-- **Embodiment generality**: Latent and trajectory tokens can be more embodiment-agnostic, facilitating cross-robot transfer, whereas raw action tokens may overfit to a particular robot’s actuation space.[^9][^14]
-
-Your deep RL and autonomy background is particularly useful for reasoning about these trade-offs in terms of policy expressivity, exploration, and safety, since tokenization choices affect not only modeling but also how policies interact with physical systems.
-
-## 3.12 Suggested Reading for Module 3
-
-To deepen understanding of action representation and tokenization in VLAs:
-- Read the "Action Tokenization" survey for an in-depth taxonomy and analysis of the eight action token categories and their strengths/limitations.[^3][^9]
-- Study the FAST paper to understand DCT-based compression and how it enables efficient autoregressive VLAs on high-frequency robot data.[^5][^6]
-- Review practitioner overviews of action representation in foundation models for manipulation (e.g., comparisons of continuous, discretized, and diffusion-based actions in ACT, OpenVLA, etc.).[^4][^10]
-- Glance at DFMP and related discrete generative policy work to see how discrete modeling can still yield continuous control behavior.[^8]
-
-## 3.13 Recommended Exercises (Leveraging Your Background)
-
-1. **Toy Action Tokenization Experiment**
-   - In a simple continuous control environment (e.g., a 2D point-mass or planar arm), implement three policy variants:
-     - Continuous Gaussian MLP policy (baseline).
-     - Discretized per-dimension action-bin policy (categorical outputs).
-     - Small DCT-based action-chunk tokenizer (e.g., over 8–10 steps) with discrete tokens decoded back to actions.
-   - Compare performance, stability, and sample efficiency under behavior cloning or RL.
-
-2. **Classify VLA Papers by Token Type**
-   - Select 4–6 VLA or robotics foundation model papers and classify them using the eight token types from the survey (language, code, affordance, trajectory, goal state, latent, raw action, reasoning).
-   - For each, write a short paragraph on how the chosen tokenization relates to the tasks they target (long-horizon planning vs. dexterous manipulation) and the data they use.
-
-3. **Design an Action Tokenization Scheme for Your Robot**
-   - Choose a specific robot platform (e.g., a 7-DoF manipulator or mobile base) and describe three possible action tokenization schemes tailored to it: one high-level (skills), one mid-level (end-effector or waypoint trajectories), and one low-level (FAST-style chunks).
-   - Analyze the advantages and drawbacks of each scheme in terms of training data requirements, compatibility with your existing controllers, and deployment constraints.
-
-Completing these exercises will give you a concrete, implementation-ready understanding of how action representations are chosen and tokenized in VLAs, and how these choices connect back to your knowledge of continuous control, policy design, and hierarchical RL.
-
----
-
-## References
-
-1. [[PDF] Foundation models in robotics: Applications, challenges, and the ...](https://par.nsf.gov/servlets/purl/10597603)
-
-2. [Vision-language-action model](https://en.wikipedia.org/wiki/Vision-language-action_model) - In robot learning, a vision-language-action model (VLA) is a class of multimodal foundation models t...
-
-3. [A Survey on Vision-Language-Action Models: An Action Tokenization ...](https://huggingface.co/papers/2507.01925) - Join the discussion on this paper page
-
-4. [Foundation Models for Manipulation: Overview - GitHub](https://github.com/Argo-Robot/foundation_models) - Overview about state-of-art imitation learning techniques for robotic manipulation, enabling general...
-
-5. [Efficient Action Tokenization for Vision-Language-Action Models](https://huggingface.co/papers/2501.09747) - Join the discussion on this paper page
-
-6. [FAST: Efficient Action Tokenization for Vision-Language-Action Models](https://arxiv.org/abs/2501.09747) - Autoregressive sequence models, such as Transformer-based vision-language action (VLA) policies, can...
-
-7. [Transformer Architectures - Hugging Face](https://huggingface.co/learn/llm-course/chapter1/6) - Most modern Large Language Models (LLMs) use the decoder-only architecture. These models have grown ...
-
-8. [Discrete Flow Matching for Visuomotor Policy Learning | OpenReview](https://openreview.net/forum?id=Vg3K3ZEi8B) - This paper presents Discrete Flow Matching Policy (DFMP) that learns continuous robot actions in a d...
-
-9. [[Revue de papier] A Survey on Vision-Language-Action Models: An Action Tokenization Perspective](https://www.themoonlight.io/fr/review/a-survey-on-vision-language-action-models-an-action-tokenization-perspective) - This paper presents a comprehensive survey of Vision-Language-Action (VLA) models through the lens o...
-
-10. [4. Experimental Methods...](https://www.emergentmind.com/topics/robotic-foundation-models) - Robotic foundation models are large-scale pre-trained neural architectures that unify vision, langua...
-
-11. [FAST: Efficient Action Tokenization for Vision-Language ... - arXiv](https://arxiv.org/html/2501.09747v1) - We propose FAST, a simple yet effective approach for tokenization of robot action trajectories via t...
-
-12. [FAST: Efficient Robot Action Tokenization - Physical Intelligence](https://www.pi.website/research/fast) - Our FAST tokenizer compresses action sequences using the discrete cosine transform (DCT). It results...
-
-13. [Vision-Language-Action Models for General Robot Control](https://huggingface.co/blog/pi0) - π0 (Pi-Zero) is a Vision-Language-Action (VLA) model, developed by the Physical Intelligence team de...
-
-14. [Robotics foundation models](https://nairl.kr/robotics-foundation-models/) - Robotics foundation models are large-scale machine learning models designed to serve as versatile bu...
-
+**Books**
+- Modern Robotics (control interface grounding).
+- Reinforcement Learning: An Introduction (action abstraction and policy parameterization lens).

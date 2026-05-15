@@ -75,3 +75,18 @@ During post-training, protect core capabilities with:
 
 Without safeguards, narrow improvements can degrade broader competence.
 
+## 7.8 Anchor papers for modern post-training
+
+Recent work provides a clearer map of post-training than older VLA notes usually include. HIL-SERL highlights human-in-the-loop real-world RL. SimpleVLA-RL makes the case for outcome-based RL on autoregressive VLAs. π*0.6 shows how stronger RL fine-tuning can improve flow-based or trajectory-generating policies. Together, these papers show that post-training is becoming a standard stage rather than an optional extension.
+
+## 7.9 Post-training now overlaps with reasoning and world modeling
+
+The boundary between RL, planning, and reasoning is getting blurrier. ThinkAct-style systems use RL to ground internal plans in task success. UniVLA-style systems inject predictive world knowledge into the training objective. As a result, future VLA stacks may treat post-training not only as reward optimization, but as a way to shape internal reasoning and foresight.
+
+## Deepening resources
+
+- HIL-SERL (https://arxiv.org/abs/2410.21845)
+- SimpleVLA-RL (https://arxiv.org/abs/2509.09674)
+- UC Berkeley CS285 (http://rail.eecs.berkeley.edu/deeprlcourse/)
+
+For a broader reading index across all chapters, see Chapter 13.

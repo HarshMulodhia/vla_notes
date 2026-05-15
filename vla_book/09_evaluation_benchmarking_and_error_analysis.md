@@ -83,3 +83,18 @@ For reproducible reporting, include:
 
 Transparent reporting is essential for comparing VLA systems fairly.
 
+## 9.8 Benchmarking should expose system assumptions
+
+A strong benchmark does more than report success rate. It should reveal whether a policy depends on narrow camera setups, specific embodiments, aggressive action clipping, or unusually slow control loops. This is especially important for modern VLAs because paper-to-paper comparisons are often confounded by hidden runtime assumptions.
+
+## 9.9 Add paper-family comparisons, not only model-by-model comparisons
+
+For modern study, it helps to compare entire families: RT/OpenVLA-style autoregressive systems, BeT-style discrete-action systems, Diffusion Policy and π0-style generative-control systems, and dual-system runtime architectures. Family-level comparison reveals deeper trade-offs than isolated benchmark numbers.
+
+## Deepening resources
+
+- vla-evaluation-harness (https://github.com/allenai/vla-evaluation-harness)
+- Open X-Embodiment evaluation sections (https://arxiv.org/abs/2310.08864)
+- Probabilistic Robotics for calibration/uncertainty evaluation
+
+For a broader reading index across all chapters, see Chapter 13.
