@@ -83,3 +83,10 @@ Before training, specify:
 5. rollout evaluation protocol,
 6. uncertainty handling and safety constraints.
 
+## 2.9 Why generative-model math now belongs in VLA notes
+
+The current literature makes it clear that action prediction is no longer only a next-step supervised-learning problem. Diffusion and flow-matching formulations matter because robot action generation is often multimodal, horizon-dependent, and sensitive to smoothness. A mathematical treatment of VLA control should therefore include both autoregressive likelihood views and conditional generative-trajectory views.
+
+## 2.10 Practical bridge from equations to papers
+
+When reading RT-2 or OpenVLA, the main mathematical lens is usually conditional sequence modeling. When reading Diffusion Policy, π0, or FAST-related work, add the lens of trajectory generation, compression, and receding-horizon decoding. The important move is to translate every paper back into the same policy question: what conditional object is the model actually learning to generate?

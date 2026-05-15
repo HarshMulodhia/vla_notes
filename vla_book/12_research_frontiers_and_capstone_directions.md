@@ -63,3 +63,10 @@ Choose by intersection of:
 - available data and hardware constraints,
 - your own long-term specialization goals.
 
+## 12.8 Updated frontier map from the current reading flow
+
+The newer frontier is best summarized in four clusters: richer action generation, more scalable data engines, faster runtime architectures, and post-training that adds reasoning or predictive world structure. This means future research directions should not be chosen only by model family. They should also be chosen by which system bottleneck you want to attack: data, action interface, runtime, or improvement loop.
+
+## 12.9 A practical capstone framing
+
+A modern capstone can mirror the full reading flow: start with an RT/OpenVLA-style baseline, compare at least one alternative action interface such as chunking or diffusion, add a data-engineering improvement, and finish with either a runtime-speedup experiment or a post-training experiment. That sequence better reflects the field than treating the VLA as a single isolated model-training problem.

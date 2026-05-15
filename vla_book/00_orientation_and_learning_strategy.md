@@ -84,3 +84,18 @@ By the end, you should be able to:
 - define evaluation and safety criteria for deployment,
 - identify one research gap worth a thesis-level exploration.
 
+## 0.8 Mapping the book to the current paper flow
+
+The modern VLA reading flow is no longer just "foundations -> policy -> deployment." A better map is:
+1. generative-model foundations,
+2. RT-style and OpenVLA-style robot foundation models,
+3. modern action-head vs action-expert designs,
+4. data scaling and data infrastructure,
+5. efficient inference and dual-system execution,
+6. RL fine-tuning, reasoning, and world models.
+
+This matters because many later papers assume the reader already understands why diffusion and flow matching entered robot control, why OXE-scale data changed pretraining, and why latency is now a model-selection constraint.
+
+## 0.9 What to keep track of while reading the field
+
+Maintain one running table for every paper you read with these columns: backbone, action interface, data scale, embodiment scope, runtime frequency, post-training recipe, and deployment assumptions. Doing this early prevents the literature from becoming a list of disconnected model names.

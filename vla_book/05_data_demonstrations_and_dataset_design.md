@@ -98,3 +98,10 @@ Before large-scale training, confirm:
 - success/failure tags are reliable,
 - hard-case slices are explicitly represented.
 
+## 5.9 Why OXE, AgiBot World, and UMI changed the conversation
+
+The importance of OXE and AgiBot World is not only scale. These datasets made embodiment metadata, synchronization quality, shared schemas, and cross-lab variation unavoidable design concerns. UMI and later human-video-based pipelines further expanded the data question from "how do we teleoperate more?" to "how do we convert diverse human and robot behavior into reusable robot policy supervision?"
+
+## 5.10 Training formats versus logging formats
+
+A useful distinction is to separate logging formats such as rosbag and MCAP from training-oriented schemas such as RLDS or LeRobotDataset. Logging formats are optimized for faithful capture and replay; training formats are optimized for batch loading, slicing, normalization, and metadata access. Strong VLA systems usually need both layers to be well designed.

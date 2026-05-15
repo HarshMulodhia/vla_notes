@@ -80,3 +80,10 @@ When behavior is unstable, inspect:
 - latency spikes,
 - frequency of safety-layer overrides.
 
+## 8.9 Efficient inference is now a model capability question
+
+SmolVLA, RTC, Helix, and Fast-in-Slow make an important point: inference design is not downstream plumbing. Compression, asynchronous execution, frozen context reuse, and dual-rate control can change what tasks a model can complete at all. In VLA systems, a strong model with a weak runtime loop often loses to a smaller model with a better latency budget.
+
+## 8.10 Slow reasoning plus fast execution is becoming a default pattern
+
+Dual-system designs separate heavy semantic reasoning from lightweight motor execution. This pattern appears in different forms across Helix and Fast-in-Slow and is likely to become more common as models grow. The practical lesson is that not every control cycle needs full multimodal deliberation; many cycles only need stable execution conditioned on a slowly updated plan.

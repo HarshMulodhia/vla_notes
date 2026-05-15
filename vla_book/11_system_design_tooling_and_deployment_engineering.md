@@ -79,3 +79,10 @@ Healthy process includes:
 
 Strong process is a technical multiplier for VLA deployment success.
 
+## 11.8 Tooling now includes data infrastructure, not just model infrastructure
+
+For VLA systems, tooling spans more than experiment tracking and checkpoint storage. It also includes RLDS or LeRobotDataset conversion pipelines, synchronized sensor capture, embodiment metadata management, replay tools, and evaluation harnesses. A strong VLA stack is as much a data and logging system as it is a model-training system.
+
+## 11.9 Practical stack layers worth standardizing
+
+A mature setup should standardize five layers: data capture, dataset conversion, training configuration, evaluation harnesses, and deployment logging. This is the systems lesson behind large-scale datasets and cross-embodiment training: once the model spans many robots and tasks, inconsistent tooling becomes a larger bottleneck than minor modeling flaws.

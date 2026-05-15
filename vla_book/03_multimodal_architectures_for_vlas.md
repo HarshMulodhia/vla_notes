@@ -88,3 +88,10 @@ Typical early warnings:
 
 These symptoms should be tied to architecture-level ablations, not only training hyperparameter tuning.
 
+## 3.10 Current architecture split: action heads versus action experts
+
+A major trend in newer papers is the distinction between VLM-plus-action-head systems and VLM-plus-action-expert systems. CogACT, GR00T N1, and X-VLA are useful reference points for the first family, where a strong grounded backbone feeds a dedicated action module. π0 is the canonical reference point for the second family, where an action expert can access richer intermediate features and use more expressive generative-control machinery.
+
+## 3.11 Why this split matters operationally
+
+The split predicts different bottlenecks. Action-head systems are often simpler to train and deploy but may bottleneck on information access. Action-expert systems are often more expressive and better suited to smooth high-frequency control, but they create extra inference and systems-engineering burdens. This is one of the clearest examples of how architecture and deployment are coupled in VLA work.

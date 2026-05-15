@@ -98,3 +98,20 @@ When reading a VLA paper/repo, always answer:
 4. What post-training is used beyond BC?
 5. What safety and fallback assumptions are made?
 
+## 1.11 Anchor papers for each taxonomy axis
+
+A useful shortcut is to attach named papers to the taxonomy:
+- **RT-2** for the VLM-to-action transition,
+- **OpenVLA** for open-source VLM-based end-to-end control,
+- **BeT** for discrete action modeling,
+- **Diffusion Policy** for generative trajectory prediction,
+- **ACT** for chunk-level control,
+- **CogACT / X-VLA** for VLM plus action-head designs,
+- **π0** for VLM plus action-expert designs,
+- **ThinkAct / Fast-ThinkAct** for explicit or compressed reasoning-aware control.
+
+This gives you a concrete retrieval cue whenever the taxonomy feels too abstract.
+
+## 1.12 Additional operational question: what sits outside the model?
+
+A taxonomy is incomplete if it ignores the surrounding stack. For each system, also ask what remains external: motion planners, collision checkers, low-level controllers, safety filters, or human takeover procedures. Two papers can both be "end-to-end VLAs" in the narrow sense yet differ drastically in how much classical robotics infrastructure they rely on at runtime.

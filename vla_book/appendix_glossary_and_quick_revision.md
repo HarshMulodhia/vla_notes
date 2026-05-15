@@ -52,3 +52,11 @@
 - [ ] Intervention and incident logging operational.
 - [ ] Rollback and operator takeover runbook verified.
 
+## A.6 Paper families to remember
+
+- **Historical bridge:** RT-1, RT-2, Octo, OpenVLA
+- **Action modeling anchors:** BeT, Diffusion Policy, ACT, FAST
+- **Modern architectures:** CogACT, GR00T N1, X-VLA, π0, InternVLA-M1
+- **Data scaling:** OXE, AgiBot World, UMI, VITRA, Human to Robot Transfer
+- **Runtime systems:** SmolVLA, RTC, Helix, Fast-in-Slow
+- **Post-training and foresight:** HIL-SERL, SimpleVLA-RL, π*0.6, CoT-VLA, ThinkAct, Fast-ThinkAct, UniVLA, Cosmos Policy, DreamZero
