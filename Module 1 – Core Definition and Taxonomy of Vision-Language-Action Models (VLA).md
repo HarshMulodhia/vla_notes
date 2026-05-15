@@ -4,7 +4,7 @@
 
 A vision-language-action model is a policy that conditions on visual observations, language instructions, and often robot state, then outputs actions suitable for execution on a real or simulated robot. In formal terms, it is a multimodal policy
 \[
-\pi_	heta(a_t \mid o_{\le t}, g, s_{\le t})
+\pi_\theta(a_t \mid o_{\le t}, g, s_{\le t})
 \]
 where the parameters are usually initialized from a large vision-language backbone and then adapted to robot data.
 
