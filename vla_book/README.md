@@ -10,11 +10,11 @@ Use the book in two passes:
 
 ## How to read this book
 
-1. Read Chapters 00-02 together with Phase 1 to connect VLA math to diffusion, flow matching, and sequence modeling.
-2. Read Chapters 03-04 with Phase 2 and Phase 3 to understand the evolution from RT-1 and RT-2 to OpenVLA, CogACT, and π0-style systems.
-3. Read Chapters 05-06 with Phase 4 to connect data design, RLDS-style schemas, and large-scale optimization practice.
-4. Read Chapters 07-08 with Phase 5 and Week 12 of Phase 6 to connect post-training, latency, and dual-system runtime design.
-5. Read Chapters 09-12 with the final Phase 6 weeks to frame evaluation, safety, reasoning, world models, and open research questions.
+1. Read Chapters 00–02 together with Phase 1 to connect VLA math to diffusion, flow matching, and sequence modeling.
+2. Read Chapters 03–04 with Phase 2 and Phase 3 to understand the evolution from RT-1 and RT-2 to OpenVLA, CogACT, and π0-style systems.
+3. Read Chapters 05–06 with Phase 4 to connect data design, RLDS-style schemas, and large-scale optimization practice.
+4. Read Chapters 07–08 with Phase 5 and Week 12 of Phase 6 to connect post-training, latency, and dual-system runtime design.
+5. Read Chapters 09–12 with the final Phase 6 weeks to frame evaluation, safety, reasoning, world models, and open research questions.
 
 ## Chapter map
 
