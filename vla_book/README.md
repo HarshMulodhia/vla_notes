@@ -64,7 +64,7 @@ Use the book in two passes:
 
 ## What to extract from each chapter
 
-Each chapter should leave you with four outputs:
+Each chapter should leave you with five outputs:
 1. a concise definition of the design problem,
 2. a list of the most important trade-offs,
 3. named anchor papers that instantiate those trade-offs,

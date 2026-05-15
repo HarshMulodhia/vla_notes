@@ -290,7 +290,7 @@ For every paper, answer the same questions:
 - Sutton & Barto, *Reinforcement Learning: An Introduction* (2nd ed.)
 - Lynch & Park, *Modern Robotics*
 - Siciliano et al., *Springer Handbook of Robotics*
-- Murphy, *Probabilistic Robotics*
+- Thrun, Burgard, Fox, *Probabilistic Robotics*
 - Goodfellow, Bengio, Courville, *Deep Learning*
 
 Use these resources as background reinforcement while following the week-by-week paper sequence.
